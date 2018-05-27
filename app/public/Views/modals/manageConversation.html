@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title"> Manage the <span ng-bind="conversation.type"></span> </h3>
+</div>
+<div class="modal-body">
+	<div class="row" ng-if="conversation.isGroup() || conversation.isChannel()">
+	  	<div class="form-group">
+    		<label class="control-label col-xs-3">Moderators : </label>
+    		<div class="col-xs-6">
+    			<ul>
+    				<li ng-repeat="moderator in conversation.moderators">
+    					<span ng-bind="moderator"></span>
+    					<a ng-if="conversation.isModerator(user.username)" ng-click="manageConversation('delete','moderators',moderator)">Delete from Moderator</a>
+
+    				</li>
+    			</ul>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="row" ng-if="conversation.isGroup() || conversation.isChannel()">
+        <div class="form-group">
+            <label class="control-label col-xs-3">Participants : </label>
+            <div class="col-xs-6">
+                <ul>
+                    <li ng-repeat="participant in conversation.participants" ng-if="!conversation.isModerator(participant)">
+                        <span ng-bind="participant"></span>
+                        <a ng-if="conversation.isModerator(user.username)" ng-click="manageConversation('add','moderators',participant)">Assign as Moderator</a>
+                        <a ng-if="conversation.isModerator(user.username)" ng-click="manageConversation('delete','participants',participant,'kicked')">Delete from conversation</a>
+                        <a ng-if="conversation.isModerator(user.username)" ng-click="manageConversation('delete','participants',participant,'banned')">Ban</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="conversation.isGroup() || conversation.isChannel()">
+	  	<div class="form-group">
+    		<label class="control-label col-xs-3">Add Participants : </label>
+    		<div class="col-xs-6">
+    			<ul>
+    				<li ng-repeat="contact in user.contactList" ng-if="!conversation.isBanned(contact.username) && !conversation.isKicked(contact.username) && !conversation.participe(contact.username)">
+    					<span ng-bind="contact.username"></span>
+    					<a ng-if="conversation.isModerator(user.username)" ng-click="manageConversation('add','participants',contact.username)">Add to <span ng_bind="conversation.type"></span></a>
+    				</li>
+    			</ul>
+	    	</div>
+	  	</div>
+	</div>    
+</div>
+<div class="modal-footer">
+
+</div>

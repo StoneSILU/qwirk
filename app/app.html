@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="Qwirk">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Qwirk Messenger</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/style.css">
+    <link rel="stylesheet" href="lib/emoji.min.css">
+    <link rel="stylesheet" href="lib/angular-material.css">
+    <link rel="stylesheet" href="lib/font-awesome.css">
+</head>
+<body ng-controller="appCtrl" ng-class="pageTitle? pageTitle: ''">
+    <div ng-view></div>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/socket.io.js"></script>
+    <script type="text/javascript" src="lib/angular.min.js"></script>
+    <script type="text/javascript" src="lib/emoji.min.js"></script>
+    <script type="text/javascript" src="lib/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script type="text/javascript" src="lib/angular-route.min.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular-aria.min.js"></script>
+    <script type="text/javascript" src="lib/angular-material.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="Services/contactService.js"></script>
+    <script type="text/javascript" src="Services/authService.js"></script>
+    <script type="text/javascript" src="Services/userService.js"></script>
+    <script type="text/javascript" src="Services/socketService.js"></script>
+    <script type="text/javascript" src="Services/quickConnectService.js"></script>
+    <script type="text/javascript" src="Services/localMediaService.js"></script>
+    <script type="text/javascript" src="Services/messageService.js"></script>
+    <script type="text/javascript" src="Services/conversationService.js"></script>
+    <script type="text/javascript" src="Models/Conversation.js"></script>
+    <script type="text/javascript" src="Models/Message.js"></script>
+    <script type="text/javascript" src="controllers.js"></script>
+    <script type="text/javascript" src="routes.js"></script>
+</body>
+</html>

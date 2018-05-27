@@ -1,0 +1,91 @@
+<div class="container register-page">
+    <div class="errorMsg alert alert-danger" ng-repeat="errorMsg in errorMsgs">
+        {{ errorMsg.msg }}
+    </div>
+    <form class="form-horizontal" role="form">
+        <h2 style="text-align: center;">Registration Form</h2>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Username</label>
+            <div class="col-xs-9">
+                <input type="text" placeholder="Username" class="form-control" ng-model="user.username" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">First Name</label>
+            <div class="col-xs-9">
+                <input type="text" placeholder="First Name" class="form-control" ng-model="user.firstName" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Last Name</label>
+            <div class="col-xs-9">
+                <input type="text" placeholder="Last Name" class="form-control" ng-model="user.lastName" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3 control-label">Email</label>
+            <div class="col-xs-9">
+                <input type="email" ng-model="user.email" placeholder="Email" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-xs-3 control-label">Password</label>
+            <div class="col-xs-9">
+                <input type="password" ng-model="user.password" placeholder="Password" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-xs-3 control-label">Confirm Password</label>
+            <div class="col-xs-9">
+                <input type="password" ng-model="user.password2" placeholder="Confirm Password" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthDate" class="col-xs-3 control-label">Date of Birth</label>
+            <div class="col-xs-9">
+                <input type="date" ng-model="user.birthDate" placeholder="yyyy-MM-dd"  max="{{date | date:'yyyy-MM-dd'}}" required class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3">Gender</label>
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="user.gender" value="Female" name="Gender">Female
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="user.gender" value="Male" name="Gender">Male
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <label for="Profile Picture" class="col-xs-3 control-label">Upload your profile</label>
+            <div class="col-xs-6">
+                <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="1MB" required ngf-model-invalid="errorFile">
+                <i ng-show="myForm.file.$error.required">*required</i><br>
+                <i ng-show="myForm.file.$error.maxSize">File too large 
+                      {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" style="
+                max-height: 100px;"> 
+                <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+                <br>
+                <span class="progress" ng-show="picFile.progress >= 0">
+                    <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+                </span>
+                <span ng-show="picFile.result">Upload Successful</span>
+                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <div class="row">
+                <button type="submit" class="col-xs-offset-4 col-xs-4 btn btn-primary " ng-click="register(user)">Register</button>
+                <a ng-click="toHome()" class=" col-xs-4 btn btn-primary ">Login</a>
+            </div>
+        </div>
+    </form> <!-- /form -->
+</div> <!-- ./container -->

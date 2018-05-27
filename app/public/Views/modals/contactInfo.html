@@ -1,0 +1,58 @@
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">×</button>
+    <h1 class="text-center" ng-bind="contactInfo.username"></h1>
+  </div>
+  <div class="modal-body">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2 qwirk-sideB-avatar">
+            <img style="max-height: 200px;" src="{{ contactInfo.profilePicture }}">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">Last Name : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group" ng-bind="contactInfo.lastName">
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">First Name : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group" ng-bind="contactInfo.firstName">
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">Email : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group" ng-bind="contactInfo.email">
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">BirthDate : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group">{{ contactInfo.birthDate | date: 'dd/MM/yyyy'}}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">Bio : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group" ng-bind="contactInfo.bio">
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3 form-group">Status : </label>
+        <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+          <span class="name-meta form-group" ng-bind="contactInfo.status">
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <button class="col-xs-offset-3 col-xs-6 btn btn-danger" ng-click="manageContact('delete',contactInfo.username)">SUPPRIMER CET AMI </button>
+      </div>
+    </div>
+  </div>

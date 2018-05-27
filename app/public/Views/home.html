@@ -1,0 +1,201 @@
+  <div class="container app">
+    <div class="row app-one">
+      <div class="col-sm-4 side">
+        <div class="side-one">
+          <!-- Heading -->
+          <div class="row heading">
+            <div class="col-sm-3 col-xs-3 heading-avatar">
+              <div class="heading-avatar-icon" ng-click="openModal('myInfos')">
+                <img src="{{ user.profilePicture }}">
+              </div>
+            </div>
+            <div class="col-xs-2 heading-compose pull-right">
+              <i class="fa fa-power-off fa-2x pull-right" ng-click="reset()" aria-hidden="true"></i>
+            </div>
+            <div class="col-xs-2 heading-compose pull-right">
+              <i  ng-click="openModal('newDiscuss')" class="fa fa-comments fa-2x  pull-right" title="New Discussion" aria-hidden="true"></i>
+            </div>
+            <div class="col-xs-2 heading-compose pull-right">
+              <i ng-click="toogleSidebar()" ng-class=" searchNewContact ?'fa fa-plus fa-2x pull-right red':'fa fa-plus fa-2x pull-right'" title="Add a contact" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- Heading End -->
+
+          <!-- SearchBox -->
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input ng-model="searchUser" type="text" class="form-control" name="searchText" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>  
+          <!-- Search Box End -->
+          <div class="row searchBox">
+            <button class="btn col-xs-12 btn-info" type="button" ng-click="openModal('createMConv')">Create group or channel</button>
+          </div>
+          <!-- qwirk-sideB -->
+          <div class="row qwirk-sideB">
+            <div class="row qwirk-sideB-body" ng-repeat="people in newPeople" ng-if="searchNewContact">
+              <div class="col-sm-3 col-xs-3 qwirk-sideB-avatar">
+                <div class="avatar-icon" ng-click="setContactInfo(people)">
+                  <img ng-src="{{ people.profilePicture }}">
+                </div>
+              </div>
+              <div class="col-xs-9 qwirk-sideB-main">
+                <div class="row">
+                  <div class="col-xs-8 qwirk-sideB-username">
+                    <span class="name-meta" ng-bind=" people.username">
+                    </span>
+                    <span class="name-meta" ng-bind=" people.email">
+                    </span>
+                  </div>
+                  <div class="col-xs-4 pull-right qwirk-sideB-time">
+                    <i ng-show="!people.hasContact" ng-click="addContact(people)" class="fa fa-plus fa-2x pull-right" title="Add" aria-hidden="true"></i>
+                    <i ng-show="people.hasContact" class="fa fa-check fa-2x pull-right" title="Already added" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p ng-if="searchNewContact">Contact List <span ng-if="user.contactList.length < 1">empty</span></p>
+            <div class="row qwirk-sideB-body" ng-repeat="contact in user.contactList | filter:{ username: searchUser }" ng-if="searchNewContact">
+              <div class="col-sm-3 col-xs-3 qwirk-sideB-avatar">
+                <div class="avatar-icon" data-toggle="modal" data-target="#contactInfo" ng-click="setContactInfo(contact)">
+                  <img ng-src="{{ contact.profilePicture }}">
+                </div>
+              </div>
+              <div class="col-xs-9 qwirk-sideB-main" ng-click="startDiscussion(contact)">
+                <div class="row">
+                  <div class="col-xs-12 qwirk-sideB-username">
+                    <span class="name-meta" ng-bind=" contact.username">
+                    </span>
+                    <span class="name-meta" ng-bind=" contact.email">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p ng-if="searchNewContact">Channel list</p>
+            <div class="row qwirk-sideB-body" ng-repeat="channel in channels | filter:{ name: searchUser }" ng-if="searchNewContact && !channel.isBanned(user.username) && !channel.isKicked(user.username)">
+              <div class="col-xs-3 qwirk-sideB-avatar">
+                <div class="avatar-icon" data-toggle="modal" data-target="#channelInfo">
+                  <img ng-src="{{ channel.conversationPicture }}">
+                </div>
+              </div>
+              <div class="col-xs-9 qwirk-sideB-main" ng-click="addChannel(channel)">
+                <div class="row">
+                  <div class="col-xs-12 qwirk-sideB-username">
+                    <span class="name-meta" ng-bind=" channel.name">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row qwirk-sideB-body" ng-repeat="conversation in conversations | orderBy : 'lastMessage.creationDate' : true" ng-click="setConversation(conversation)" ng-show="!searchNewContact">
+              <div class="col-sm-3 col-xs-3 qwirk-sideB-avatar">
+                <div class="avatar-icon">
+                  <img ng-src="{{ conversation.conversationPicture }}">
+                </div>
+              </div>
+              <div class="col-sm-9 col-xs-9 qwirk-sideB-main">
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 qwirk-sideB-name">
+                    <span class="name-meta" ng-bind="conversation.name">
+                    <p ng-bind="conversation.lastMessage"></p>
+                  </span>
+                  </div>
+                  <div class="col-sm-4 col-xs-4 pull-right qwirk-sideB-time">
+                    <span class="time-meta pull-right" ng-bind="conversation.lastMessage.displayDate">
+                    </span>
+
+                    <span class="unread-message" ng-show="conversation.unreadMessages > 0" ng-bind="conversation.unreadMessages"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="alert-p" ng-if="( !conversations || conversations.length == 0 )&& !searchNewContact">Any discuscussion</p>
+          </div>
+          <!-- Sidebar End -->
+        </div>
+      </div>
+      <!-- Conversation Start -->
+      <div class="col-sm-8 conversation" ngf-drop="showFile($file)" ngf-max-size="10MB" ngf-multiple="false" ngf-allow-dir="true" accept="image/*,application/*,audio/*,video/*" ngf-pattern="'image/*,application/*,audio/*,video/*'">
+        <!-- Heading -->
+        <div class="row heading">
+          <div class="col-sm-2 col-md-2 col-xs-2 heading-avatar">
+            <div class="heading-avatar-icon">
+              <img ng-click="openModal('manageConversation')" src="{{ conversation.conversationPicture }}">
+            </div>
+          </div>
+          <div class="col-sm-7 col-xs-7 heading-name">
+            <a class="heading-name-meta" ng-click="openModal('manageConversation')">{{ conversation.name }}
+            </a>
+            <span class="heading-online">Online</span>
+          </div>
+          <div class="col-sm-1 col-xs-1 col-sm-1 heading-dot pull-right">
+            <i class="fa fa-video-camera fa-2x pull-right" ng-show="conversation" ng-click="call('video')" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1 col-sm-1 heading-dot pull-right">
+            <i class="fa fa-phone fa-2x pull-right" ng-show="conversation" ng-click="call('audio')" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- Heading End -->
+
+        <!-- Message Box -->
+        <div class="row message" id="conversation">
+
+          <div class="row message-previous" ng-if="conversation && !conversation.limit">
+            <div class="col-sm-12 previous">
+              <a ng-click="getConvMessages()">
+              Show Previous Message!
+              </a>
+            </div>
+          </div>
+
+          <div class="row message-body" ng-repeat="message in conversation.messages | orderBy: 'creationDate'">
+            <div ng-class="message.sender == user.username ? 'col-sm-12 message-main-sender' : 'col-sm-12 message-main-receiver'">
+              <div ng-class="message.sender == user.username ?'sender':'receiver'" >
+                <div ng-if="message.type == 'TEXT'" class="message-text" ng-bind-html="message.content | linky | emoji" >
+                 
+                </div>
+                <div ng-if="message.type == 'image'" class="message-text" >
+                  <img class="message-image" ng-src="{{message.content}}">
+                </div>
+                <div ng-if="message.type == 'application'" class="message-text">
+                  <i class="fa fa-download fa-2x" aria-hidden="true" ng-click="openFile(message)"></i>
+                </div>
+                <div ng-if="message.type == 'audio' || message.type == 'video'" class="message-text">
+                  <audio controls id="msg{{message._id}}" ng-if="message.type == 'audio'" ng-src="{{message.content}}" preload="auto"></audio>
+                  <video controls id="msg{{message._id}}" ng-if="message.type == 'video'" ng-src="{{message.content}}" preload="auto"></video>
+                </div>
+                <span class="message-time pull-right" ng-bind="message.displayDate">
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Message Box End -->
+
+        <!-- Reply Box -->
+        <div class="row reply">
+          <div class="col-sm-1 col-xs-1 reply-emojis" ng-click="emojis()">
+            <i class="fa fa-smile-o fa-2x"></i>
+          </div>
+          <div class="col-sm-9 col-xs-9 reply-main">
+            <textarea ng-keyup="$event.keyCode == 13 && sendMessage(message)" class="form-control" rows="1" id="comment" ng-model="message"></textarea>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-attachment" ngf-select="showFile($file)" ngf-max-size="10MB" ngf-multiple="false" ngf-allow-dir="true" accept="image/*,application/*,audio/*,video/*" ngf-pattern="'image/*,application/*,audio/*, video/*'">
+            <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-send">
+            <i class="fa fa-send fa-2x" aria-hidden="true" ng-click="sendMessage(message); message = '';"></i>
+          </div>
+        </div>
+        <!-- Reply Box End -->
+      </div>
+      <!-- Conversation End -->
+    </div>
+    <!-- App One End -->
+  </div>
+

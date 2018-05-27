@@ -1,0 +1,65 @@
+<div class="modal-dialog">
+    <div class="errorMsg alert alert-danger" ng-repeat="errorMsg in errorMsgs">
+        {{ errorMsg.msg }}
+    </div>
+	<div class="loginmodal-container">
+		<h1>Login to Your QWIRK Account</h1><br>
+	  <form novalidate>
+	  	<div class="form-group">
+			<input class="form-control" type="text" placeholder="Username" ng-model="user.username">
+	  	</div>
+	  	<div class="form-group">
+			<input class="form-control" type="password" placeholder="Password" ng-model="user.password">
+	  	</div>
+
+		<div class="btn-group">
+			<input type="submit" class="login loginmodal-submit btn-primary" ng-click="login(user)" value="Login">
+		</div>
+	  </form>
+		
+	  <div class="login-help">
+		<a href="" ng-click="goTo('/register')">Register</a> - <a href="" data-target="#pwdModal" data-toggle="modal">Forgot Password</a>
+	  </div>
+	</div>
+</div>
+<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header row">
+              <i class=" col-xs-2 fa fa-arrow-left fa-2x pull-left" ng-click="retrieveAccount.mailSent = false;" ng-show="retrieveAccount.mailSent" title="Previous" aria-hidden="true"></i>
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			  <h1 class="text-center">Reset Your Password</h1>
+			</div>
+			<div class="modal-body">
+			    <div ng-show="!retrieveAccount.mailSent" class="col-md-12">
+			        <div class="panel panel-default">
+			            <div class="panel-body">
+			                <div class="text-center">
+			                  	<p>If you have forgotten your password you can reset it here.</p>
+			                    <div class="panel-body">
+			                        <fieldset>
+			                            <div class="form-group">
+			                                <input class="form-control input-lg" placeholder="E-mail Address" ng-model="forgottenEmail" type="email" ngMinlength="5" required>
+			                            </div>
+			                            <input ng-click="retrieveAccount(forgottenEmail)" class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">
+			                        </fieldset>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			    <div ng-show="retrieveAccount.mailSent" class="col-md-12">
+			        <div class="panel panel-default">
+			            <div class="panel-body">
+			                <div class="text-center">
+			                  	<p ng-bind="retrieveAccount.message"></p>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="closeModal('callModal')" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <video class="col-xs-6" ng-src="{{stream}}" autoplay="true"></video>
+      <video class="col-xs-6" ng-src="{{remoteStream}}" autoplay="true"></video>
+    </div>
+    <p>{{stream}}</p>
+    <p>{{remoteStream}}</p>
+  </div>
+</div>

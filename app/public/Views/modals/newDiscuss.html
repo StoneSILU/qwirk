@@ -1,0 +1,29 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="closeModal()" aria-hidden="true">×</button>
+	<h1 class="text-center">New Conversation</h1>
+</div>
+<div class="modal-body">
+  <div class="col-sm-12">
+    <h2 ng-if="user.contactList.length == 0 || !user.contactList">Empty contact list please add friends to discuss</h2>
+    <div class="row qwirk-sideB-body" ng-repeat="contact in user.contactList" ng-click="startDiscussion(contact,true)" >
+      <div class="col-xs-3 qwirk-sideB-avatar">
+        <div class="avatar-icon">
+          <img ng-src="{{ contact.profilePicture }}">
+        </div>
+      </div>
+      <div class="col-xs-9 qwirk-sideB-main">
+        <div class="row">
+          <div class="col-xs-8 qwirk-sideB-username">
+            <span class="name-meta" ng-bind=" contact.username">
+            </span>
+            <span class="name-meta" ng-bind=" contact.email">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+
+</div>

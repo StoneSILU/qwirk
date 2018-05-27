@@ -1,0 +1,84 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="closeModal()" aria-hidden="true">×</button>
+    <h1 class="text-center" ng-bind="user.username"></h1>
+  </div>
+  <div class="modal-body">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-xs-12 qwirk-sideB-avatar">
+              <img style="max-height: 200px;" src="{{ user.profilePicture }}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for="Profile Picture" class="col-xs-3 control-label">Select new Picture</label>
+            <div class="col-xs-6">
+                <input type="file" ngf-select ng-model="newPicFile" name="file" accept="image/*" ngf-max-size="1MB" required ngf-model-invalid="errorFile">
+                <i ng-show="myForm.file.$error.required">*required</i><br>
+                <i ng-show="myForm.file.$error.maxSize">File too large 
+                      {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                <img ng-show="myForm.file.$valid" ngf-thumbnail="newPicFile" class="thumb" style="
+                max-height: 100px;"> 
+                <button ng-click="newPicFile = null" ng-show="newPicFile">Remove</button>
+                <br>
+                <span class="progress" ng-show="newPicFile.progress >= 0">
+                    <div style="width:{{newPicFile.progress}}%" ng-bind="newPicFile.progress + '%'"></div>
+                </span>
+                <span ng-show="newPicFile.result">Upload Successful</span>
+                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+            </div>
+          </div>              
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">Last Name : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <input class="name-meta form-group" ng-model="user.lastName">
+            </input>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">First Name : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <input class="name-meta form-group" ng-model="user.firstName">
+            </input>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">Email : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <span class="name-meta form-group" ng-bind="user.email">
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">BirthDate : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <span class="name-meta form-group" ng-bind="user.getDisplayDate()">
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">Bio : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <textarea class="name-meta form-group" ng-model="user.bio" maxlength="100" rows="2">
+            </textarea>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3 form-group">Status : </label>
+          <div class="col-xs-9 qwirk-sideB-username qwirk-sideB-main">
+            <select ng-model="user.status">
+              <option ng-repeat="status in user.statusList" value="{{status}}">{{status}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row btn-group">
+          <button class="btn btn-primary pull-left"  ng-click="saveUser(newPicFile);">Save</button>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="modal-footer">
+
+</div>
